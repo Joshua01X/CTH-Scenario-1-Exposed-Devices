@@ -39,6 +39,7 @@ DeviceInfo
 
 
 ### Duration of Exposure for Windows-Target-1
+The device has been exposed to the public internet for more than a month by now
 **KQL Query Used:**
 ```kql
 DeviceInfo
