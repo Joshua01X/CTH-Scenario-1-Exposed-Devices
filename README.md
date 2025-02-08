@@ -23,9 +23,9 @@ A virtual machine, **windows-target-1**, was left exposed to the public internet
 6. **Map Observations to the MITRE ATT&CK Framework**: Classify attack techniques for deeper analysis.
 
 ## Steps Taken
+### STEP 1: Identifying Internet-Facing Devices
 There are a total of **18 virtual machines** currently exposed to the public internet. After initial analysis, **17 virtual machines** were confirmed to be safe and isolated. The focus of this investigation is on the remaining **target virtual machine, "windows-target-1"**.
 
-### Identifying Internet-Facing Devices
 **KQL Query Used:**
 ```kql
 DeviceInfo
@@ -38,7 +38,7 @@ DeviceInfo
 ![image](https://github.com/user-attachments/assets/ec5b1368-e46f-4289-9c6d-fdbf40942b20)
 
 
-### Duration of Exposure for Windows-Target-1
+### STEP 2: Duration of Exposure for Windows-Target-1
 The device has been exposed to the public internet for more than a month by now
 **KQL Query Used:**
 ```kql
@@ -50,7 +50,7 @@ DeviceInfo
 Last Internet-Facing time: **Jan 6, 2025 4:15:03 PM**
 ![image](https://github.com/user-attachments/assets/80c7a551-d4ba-42c8-a0cb-c2ae4a0a7595)
 
-### Identifying Malicious Logon Attempts
+### STEP 3: Identifying Malicious Logon Attempts
 Over 100 failed logon attempts were detected from numerous remote IPs.
 **KQL Query Used:**
 ```kql
@@ -65,7 +65,7 @@ DeviceLogonEvents
 ![image](https://github.com/user-attachments/assets/a8f263cb-2443-4698-800d-5e04a05bc4fa)
 
 
-### Brute Force Attempts and Account Name Variations
+### STEP 4: Brute Force Attempts and Account Name Variations
 A remote IP (**92.63.197.***) made **142** failed logon attempts, constantly changing account names.
 **KQL Query Used:**
 ```kql
@@ -80,7 +80,7 @@ DeviceLogonEvents
 ```
 ![image](https://github.com/user-attachments/assets/c326f1a3-7824-42b9-a6a6-097fdfd957e8)
 
-### Failed and Successful Logon Correlation
+### STEP 5: Failed and Successful Logon Correlation
 A malicious actor using **RemoteIP 194.180.48.11** attempted logins with different account names. The query below identifies failed logon attempts and correlates them with successful logins.
 **KQL Query Used:**
 ```kql
@@ -103,7 +103,7 @@ FailedLogons
 ![image](https://github.com/user-attachments/assets/6cd5a1e9-f421-464d-948e-3316fed7a8f5)
 
 
-### Remote IPs with Most Failed Logons And No Successful Attempts
+### STEP 6: Remote IPs with Most Failed Logons And No Successful Attempts
 **KQL Query Used:**
 ```kql
 let RemoteIPsInQuestion = dynamic(["92.63.197.55","194.0.234.49", "77.90.185.225", "194.180.48.11", "45.151.99.126"]);
@@ -117,7 +117,7 @@ DeviceLogonEvents
 ```
 ![image](https://github.com/user-attachments/assets/960e3c95-32c2-447a-9f83-44de31c62054)
 
-### Only Successful Logons 
+### STEP 7: Only Successful Logons 
 The only successful logon for the last 30 days was the “labuser” account and similar common identifiers. I’ve checked the logs associated with no RemoteIP and verified that they are system related activities. There were also no failed logon attempts for the labuser account, indicating that a brute force attempt did not take place for this account and a 1-time password is unlikely.
 **KQL query used:**
 ```kql
@@ -129,7 +129,7 @@ DeviceLogonEvents
 | order by Attempts desc
 ```
 
-### No Unauthorized Successes
+### STEP 8: No Unauthorized Successes
 No unauthorized logins were detected. The only successful logons in the past **30 days** were from legitimate accounts (**labuser**), commonly used within the Azure subscription.
 
 ## TTPs from MITRE ATT&CK Framework
