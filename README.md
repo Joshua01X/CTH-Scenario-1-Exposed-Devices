@@ -132,7 +132,7 @@ DeviceLogonEvents
 ### STEP 8: No Unauthorized Successes
 No unauthorized logins were detected. The only successful logons in the past **30 days** were from legitimate accounts (**labuser**), commonly used within the Azure subscription.
 
-## TTPs from MITRE ATT&CK Framework
+## Tactics, Techniques, and Procedures (TTPs) from MITRE ATT&CK Framework
 - **T1071** - Application Layer Protocol: Remote access attempts over RDP
 - **T1071.001** - Application Layer Protocol: RDP brute-force attempts
 - **T1110** - Brute Force: Multiple failed login attempts
